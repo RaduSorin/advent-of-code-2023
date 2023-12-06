@@ -2,7 +2,7 @@ const fs = require('fs');
 let calibrationValues = [];
 let sum = 0;
 
-const allFileContents = fs.readFileSync('./day1/puzzle1.txt', 'utf-8');
+const allFileContents = fs.readFileSync('./day1/puzzle1_1.txt', 'utf-8');
 allFileContents.split(/\r?\n/).forEach(line => {
 
     let numbers = line.replace(/[^0-9]/g, "");
