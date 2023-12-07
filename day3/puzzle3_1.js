@@ -3,6 +3,9 @@ let sum = 0;
 let document = [];
 
 function returnNumbersArray(str) {
+    if (str === undefined) {
+        return;
+    }
     return str.match(/\d+/g)
 }
 
@@ -28,7 +31,6 @@ for (let line = 0; line < document.length; line++) {
 
     if (returnNumbersArray(document[line]) != null) {
         lineNumbers.forEach((number) => {
-            
             var numberStartingIndex = document[line].indexOf(number, previosIndex)
             var numberEndingIndex = document[line].indexOf(number, numberStartingIndex) + number.length - 1
             previosIndex = numberEndingIndex;
@@ -67,6 +69,26 @@ for (let line = 0; line < document.length; line++) {
                         continue;
                     }
                 }
+                else if (line === document.length - 1 && char === 0) {
+                    if (
+                        previosLine[char] !== '.' && !isNumber(previosLine[char]) ||
+                        previosLine[char + 1] !== '.' && !isNumber(previosLine[char + 1]) ||
+                        middleLine[char + 1] !== '.' && !isNumber(middleLine[char + 1])
+                    ) {
+                        symbol = true;
+                        continue;
+                    }
+                }
+                else if (line === document.length - 1 && char === middleLine.length - 1) {
+                    if (
+                        previosLine[char - 1] !== '.' && !isNumber(previosLine[char - 1]) ||
+                        previosLine[char] !== '.' && !isNumber(previosLine[char]) ||
+                        middleLine[char - 1] !== '.' && !isNumber(middleLine[char - 1])
+                    ) {
+                        symbol = true;
+                        continue;
+                    }
+                }
                 else if (char === 0) {
                     if (
                         previosLine[char] !== '.' && !isNumber(previosLine[char]) ||
@@ -91,16 +113,6 @@ for (let line = 0; line < document.length; line++) {
                         continue;
                     }
                 }
-                else if (line === document.length - 1 && char === 0) {
-                    if (
-                        previosLine[char] !== '.' && !isNumber(previosLine[char]) ||
-                        previosLine[char + 1] !== '.' && !isNumber(previosLine[char + 1]) ||
-                        middleLine[char + 1] !== '.' && !isNumber(middleLine[char + 1])
-                    ) {
-                        symbol = true;
-                        continue;
-                    }
-                }
                 else if (line === document.length - 1) {
                     if (
                         previosLine[char - 1] !== '.' && !isNumber(previosLine[char - 1]) ||
@@ -108,16 +120,6 @@ for (let line = 0; line < document.length; line++) {
                         previosLine[char + 1] !== '.' && !isNumber(previosLine[char + 1]) ||
                         middleLine[char - 1] !== '.' && !isNumber(middleLine[char - 1]) ||
                         middleLine[char + 1] !== '.' && !isNumber(middleLine[char + 1])
-                    ) {
-                        symbol = true;
-                        continue;
-                    }
-                }
-                else if (line === document.length - 1 && char === middleLine.length - 1) {
-                    if (
-                        previosLine[char - 1] !== '.' && !isNumber(previosLine[char - 1]) ||
-                        previosLine[char] !== '.' && !isNumber(previosLine[char]) ||
-                        middleLine[char - 1] !== '.' && !isNumber(middleLine[char - 1])
                     ) {
                         symbol = true;
                         continue;
@@ -138,7 +140,6 @@ for (let line = 0; line < document.length; line++) {
                     }
                 }
             }
-
             if (symbol) {
                 sum += +number;
             }

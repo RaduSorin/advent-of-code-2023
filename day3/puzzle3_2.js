@@ -9,10 +9,6 @@ function returnNumbersArray(str) {
     return str.match(/\d+/g)
 }
 
-function isNumber(char) {
-    return /^\d$/.test(char);
-}
-
 const allFileContents = fs.readFileSync('./day3/puzzle3_2.txt', 'utf-8');
 allFileContents.split(/\r?\n/).forEach(line => {
     document.push(line);
@@ -23,7 +19,6 @@ for (let line = 0; line < document.length; line++) {
     let previosLine;
     let middleLine;
     let nextLine;
-    let lineNumbers = returnNumbersArray(document[line])
     var previosIndex = 0;
     previosLine = document[line - 1];
     middleLine = document[line];
@@ -34,12 +29,11 @@ for (let line = 0; line < document.length; line++) {
     var numbersPrevios = {};
     var numberNext = {};
     var previosStarIndex = 0;
-    var previosNumberIndex = 0;
     var previosNextLineNumberIndex = 0;
     var previosLineNumerIndex = 0;
 
     if (middleLine.includes('*')) {
-        for (let char = 0; char <= middleLine.length - 1; char++) {
+        for (let char = 0; char < middleLine.length; char++) {
             if (middleLine[char] === '*') {
                 starIndex.push(middleLine.indexOf('*', previosStarIndex))
                 previosStarIndex = middleLine.indexOf('*', previosStarIndex) + 1;
